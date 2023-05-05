@@ -11,7 +11,9 @@ function App () {
   const [board, setBoard] = useState(() => {
     // recuperar el tablero del localstorage
     const boardFromStorage = window.localStorage.getItem('board')
-    return boardFromStorage ? JSON.parse(boardFromStorage) : Array(9).fill(null)
+    return boardFromStorage
+      ? JSON.parse(boardFromStorage)
+      : Array(9).fill(null)
   })
 
   const [turn, setTurn] = useState(() => {
@@ -62,19 +64,13 @@ function App () {
       <h1>Ta Te Ti</h1>
       <button onClick={resetGame}>Reset del juego</button>
       <section className='game'>
-        {
-          board.map((square, index) => {
-            return (
-              <Square
-                key={index}
-                index={index}
-                updateBoard={updateBoard}
-              >
-                {square}
-              </Square>
-            )
-          })
-        }
+        {board.map((square, index) => {
+          return (
+            <Square key={index} index={index} updateBoard={updateBoard}>
+              {square}
+            </Square>
+          )
+        })}
       </section>
 
       <section className='turn'>
@@ -83,7 +79,6 @@ function App () {
       </section>
 
       <WinnerModal resetGame={resetGame} winner={winner} />
-
     </main>
   )
 }
